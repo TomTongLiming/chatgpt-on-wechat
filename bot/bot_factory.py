@@ -10,7 +10,11 @@ def create_bot(bot_type):
     :param bot_type: bot type code
     :return: bot instance
     """
-    if bot_type == const.BAIDU:
+    if bot_type == const.OLLAMA:
+        from bot.ollama.ollama_bot import OllamaBot
+        return OllamaBot()
+
+    elif bot_type == const.BAIDU:
         # 替换Baidu Unit为Baidu文心千帆对话接口
         # from bot.baidu.baidu_unit_bot import BaiduUnitBot
         # return BaiduUnitBot()

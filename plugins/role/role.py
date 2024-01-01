@@ -1,15 +1,10 @@
 # encoding:utf-8
 
-import json
-import os
-
 import plugins
 from bridge.bridge import Bridge
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
 from common import const
-from common.log import logger
-from config import conf
 from plugins import *
 
 
@@ -69,9 +64,11 @@ class Role(Plugin):
             logger.info("[Role] inited")
         except Exception as e:
             if isinstance(e, FileNotFoundError):
-                logger.warn(f"[Role] init failed, {config_path} not found, ignore or see https://github.com/zhayujie/chatgpt-on-wechat/tree/master/plugins/role .")
+                logger.warn(
+                    f"[Role] init failed, {config_path} not found, ignore or see https://github.com/zhayujie/chatgpt-on-wechat/tree/master/plugins/role .")
             else:
-                logger.warn("[Role] init failed, ignore or see https://github.com/zhayujie/chatgpt-on-wechat/tree/master/plugins/role .")
+                logger.warn(
+                    "[Role] init failed, ignore or see https://github.com/zhayujie/chatgpt-on-wechat/tree/master/plugins/role .")
             raise e
 
     def get_role(self, name, find_closest=True, min_sim=0.35):
@@ -99,7 +96,7 @@ class Role(Plugin):
         if e_context["context"].type != ContextType.TEXT:
             return
         btype = Bridge().get_bot_type("chat")
-        if btype not in [const.OPEN_AI, const.CHATGPT, const.CHATGPTONAZURE, const.LINKAI]:
+        if btype not in [const.OLLAMA, const.OPEN_AI, const.CHATGPT, const.CHATGPTONAZURE, const.LINKAI]:
             return
         bot = Bridge().get_bot("chat")
         content = e_context["context"].content[:]
